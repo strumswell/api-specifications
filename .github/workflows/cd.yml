@@ -18,6 +18,6 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.ref == 'refs/heads/main' }}
         with:
-          publish_dir: ./digital-wallet
+          publish_dir: ./digital-wallet/v1.0.0
           github_token: ${{ secrets.GITHUB_TOKEN }}
           enable_jekyll: true
