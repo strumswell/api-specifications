@@ -229,11 +229,11 @@
               "type": "boolean"
             },
             "message": {
-              "description": "An additonal message an implementer might add to provide context or hints to a passed verification",
+              "description": "An additional message an implementer might add to provide context or hints to a passed verification",
               "type": "string"
             },
             "errors": {
-              "description": "An additonal field which may include errors to further describe the reason behind a failed verification",
+              "description": "An additional field which may include errors to further describe the reason behind a failed verification",
               "type": "string"
             }
           }
@@ -254,11 +254,11 @@
               "format": "base64"
             },
             "message": {
-              "description": "An additonal message an implementer might add to provide context or hints to a passed verification",
+              "description": "An additional message an implementer might add to provide context or hints to a passed verification",
               "type": "string"
             },
             "errors": {
-              "description": "An additonal field which may include errors to further describe the reason behind a failed verification",
+              "description": "An additional field which may include errors to further describe the reason behind a failed verification",
               "type": "string"
             }
           }
