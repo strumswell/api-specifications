@@ -1,0 +1,269 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Digital Wallet Provider OpenAPI Specification",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/v1/verifiablePresentation/verify": {
+      "post": {
+        "operationId": "postVerfiablePresentationVerification",
+        "summary": "Verify a given Verifiable Presentation",
+        "tags": [
+          "VerifiablePresentation"
+        ],
+        "requestBody": {
+          "description": "The verifiable presentation (JWT presentation) to verify",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/requests/VerifiablePresentation_Verify"
+              },
+              "example": {
+                "corrUUID": "urn:uuid:649c7686-4e66-402b-84d9-5cdba5ec8111",
+                "verifiablePresentation": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImRpZDpleGFtcGxlOjB [...]"
+              }
+            }
+          }
+        },
+        "responses": {
+          "2XX": {
+            "description": "The request was successfully received, understood, and accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/responses/VerifiablePresentation_Verify"
+                },
+                "examples": {
+                  "Success": {
+                    "$ref": "#/components/examples/VerifiablePresentation_Verify_Success"
+                  },
+                  "Failure": {
+                    "$ref": "#/components/examples/VerifiablePresentation_Verify_Failure"
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "The request contains bad syntax or cannot be fulfilled"
+          },
+          "5XX": {
+            "description": "The server failed to fulfill an apparently valid request"
+          }
+        }
+      }
+    },
+    "/api/v1/verifiablePresentation/generate": {
+      "post": {
+        "operationId": "postVerfiablePresentationGeneration",
+        "summary": "Generate a new Verifiable Presentation",
+        "tags": [
+          "VerifiablePresentation"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "expirationDate",
+            "description": "Whether or not to check the expirationDate of the requested Credential",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "in": "query",
+            "name": "proof",
+            "description": "Whether or not to check the proof of the requested Credential",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "in": "query",
+            "name": "issuanceDate",
+            "description": "Whether or not to check the issuanceDate of the requested Credential",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "in": "query",
+            "name": "credentialStatus",
+            "description": "Whether or not to check the credentialStatus of the requested Credential (revoked or non-revoked)",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "A request body containg the corrUUID for which the Verifiable Presenation should be generated for",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/requests/VerifiablePresentation_Generate"
+              },
+              "example": {
+                "corrUUID": "urn:uuid:649c7686-4e66-402b-84d9-5cdba5ec8111"
+              }
+            }
+          }
+        },
+        "responses": {
+          "2XX": {
+            "description": "The request was successfully received, understood, and accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/responses/VerifiablePresentation_Generate"
+                },
+                "examples": {
+                  "Success": {
+                    "$ref": "#/components/examples/VerifiablePresentation_Generate_Success"
+                  },
+                  "Failure": {
+                    "$ref": "#/components/examples/VerifiablePresentation_Generate_Failure"
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "The request contains bad syntax or cannot be fulfilled"
+          },
+          "5XX": {
+            "description": "The server failed to fulfill an apparently valid request"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "examples": {
+      "VerifiablePresentation_Verify_Success": {
+        "summary": "Successful verification",
+        "value": {
+          "success": true,
+          "message": "Verification succeeded",
+          "errors": []
+        }
+      },
+      "VerifiablePresentation_Verify_Failure": {
+        "summary": "Failed verification",
+        "value": {
+          "success": false,
+          "message": "Verification failed",
+          "errors": [
+            "expirationTime check failed",
+            "issuanceDate check failed"
+          ]
+        }
+      },
+      "VerifiablePresentation_Generate_Success": {
+        "summary": "Successful generation",
+        "value": {
+          "success": true,
+          "verifiablePresentation": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImRpZDpleGFtcGxlOmFiZmUxM2Y3MTIxMjA0[...]",
+          "message": "Generation succeeded",
+          "errors": []
+        }
+      },
+      "VerifiablePresentation_Generate_Failure": {
+        "summary": "Failed generation",
+        "value": {
+          "success": false,
+          "message": "Generation failed",
+          "errors": [
+            "Generation of Verifiable Presentation failed because Credential has been revoked"
+          ]
+        }
+      }
+    },
+    "schemas": {
+      "requests": {
+        "VerifiablePresentation_Verify": {
+          "type": "object",
+          "required": [
+            "corrUUID",
+            "verifablePresentation"
+          ],
+          "properties": {
+            "corrUUID": {
+              "description": "The correlation uuid of the PI message",
+              "type": "string"
+            },
+            "verifablePresentation": {
+              "description": "The verifiable presentation to verify in JWT Base64 encoded format",
+              "type": "string",
+              "format": "base64"
+            }
+          }
+        },
+        "VerifiablePresentation_Generate": {
+          "type": "object",
+          "required": [
+            "corrUUID"
+          ],
+          "properties": {
+            "corrUUID": {
+              "description": "The correlation uuid of the PI message",
+              "type": "string"
+            }
+          }
+        }
+      },
+      "responses": {
+        "VerifiablePresentation_Verify": {
+          "type": "object",
+          "required": [
+            "success"
+          ],
+          "properties": {
+            "success": {
+              "description": "If the verification of the provided Verifiable Presentation was successful or not",
+              "type": "boolean"
+            },
+            "message": {
+              "description": "An additonal message an implementer might add to provide context or hints to a passed verification",
+              "type": "string"
+            },
+            "errors": {
+              "description": "An additonal field which may include errors to further describe the reason behind a failed verification",
+              "type": "string"
+            }
+          }
+        },
+        "VerifiablePresentation_Generate": {
+          "type": "object",
+          "required": [
+            "success"
+          ],
+          "properties": {
+            "success": {
+              "description": "If the generation of the Verifiable Presentation has been successful or not",
+              "type": "boolean"
+            },
+            "verifiablePresentation": {
+              "description": "The JWT formatted and base64 encoded Verifiable Presentation",
+              "type": "string",
+              "format": "base64"
+            },
+            "message": {
+              "description": "An additonal message an implementer might add to provide context or hints to a passed verification",
+              "type": "string"
+            },
+            "errors": {
+              "description": "An additonal field which may include errors to further describe the reason behind a failed verification",
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}
