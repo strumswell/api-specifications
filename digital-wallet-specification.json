@@ -21,7 +21,6 @@
                 "$ref": "#/components/schemas/requests/VerifiablePresentation_Verify"
               },
               "example": {
-                "corrUUID": "urn:uuid:649c7686-4e66-402b-84d9-5cdba5ec8111",
                 "verifiablePresentation": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImRpZDpleGFtcGxlOjB [...]"
               }
             }
@@ -189,14 +188,9 @@
         "VerifiablePresentation_Verify": {
           "type": "object",
           "required": [
-            "corrUUID",
             "verifablePresentation"
           ],
           "properties": {
-            "corrUUID": {
-              "description": "The correlation uuid of the PI message",
-              "type": "string"
-            },
             "verifablePresentation": {
               "description": "The verifiable presentation to verify in JWT Base64 encoded format",
               "type": "string",
