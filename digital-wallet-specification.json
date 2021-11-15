@@ -18,7 +18,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/requests/VerifiablePresentation_Verify"
+                "$ref": "#/components/schemas/Request_VerifiablePresentation_Verify"
               },
               "example": {
                 "verifiablePresentation": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImRpZDpleGFtcGxlOjB [...]"
@@ -32,7 +32,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/responses/VerifiablePresentation_Verify"
+                  "$ref": "#/components/schemas/Response_VerifiablePresentation_Verify"
                 },
                 "examples": {
                   "Success": {
@@ -105,10 +105,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/requests/VerifiablePresentation_Generate"
+                "$ref": "#/components/schemas/Request_VerifiablePresentation_Generate"
               },
               "example": {
-                "corrUUID": "urn:uuid:649c7686-4e66-402b-84d9-5cdba5ec8111"
+                "corrUUID": "urn:uuid:649c7686-4e66-402b-84d9-5cdba5ec8111",
+                "did": "did:ethr:example",
+                "credentialType": "DSCSA-ATP-Credential"
               }
             }
           }
@@ -119,7 +121,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/responses/VerifiablePresentation_Generate"
+                  "$ref": "#/components/schemas/Response_VerifiablePresentation_Generate"
                 },
                 "examples": {
                   "Success": {
@@ -168,6 +170,8 @@
         "value": {
           "success": true,
           "verifiablePresentation": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImRpZDpleGFtcGxlOmFiZmUxM2Y3MTIxMjA0[...]",
+          "did": "did:ethr:example",
+          "credentialType": "IdentityCredential",
           "message": "Generation succeeded",
           "errors": []
         }
@@ -179,81 +183,110 @@
           "message": "Generation failed",
           "errors": [
             "Generation of Verifiable Presentation failed because Credential has been revoked"
+          ],
+          "errorCodes": [
+            "vc_revoked"
           ]
         }
       }
     },
     "schemas": {
-      "requests": {
-        "VerifiablePresentation_Verify": {
-          "type": "object",
-          "required": [
-            "verifablePresentation"
-          ],
-          "properties": {
-            "verifablePresentation": {
-              "description": "The verifiable presentation to verify in JWT Base64 encoded format",
-              "type": "string",
-              "format": "base64"
-            }
-          }
-        },
-        "VerifiablePresentation_Generate": {
-          "type": "object",
-          "required": [
-            "corrUUID"
-          ],
-          "properties": {
-            "corrUUID": {
-              "description": "The correlation uuid of the PI message",
-              "type": "string"
-            }
+      "Request_VerifiablePresentation_Generate": {
+        "type": "object",
+        "required": [
+          "corrUUID"
+        ],
+        "properties": {
+          "corrUUID": {
+            "description": "The correlation uuid of the PI message",
+            "type": "string"
+          },
+          "did": {
+            "description": "The DID that holds the requested credential",
+            "type": "string"
+          },
+          "credentialType": {
+            "description": "The type of credential that should be requested",
+            "type": "string",
+            "enum": [
+              "IdentityCredential",
+              "DSCSA-ATP-Credential"
+            ]
           }
         }
       },
-      "responses": {
-        "VerifiablePresentation_Verify": {
-          "type": "object",
-          "required": [
-            "success"
-          ],
-          "properties": {
-            "success": {
-              "description": "If the verification of the provided Verifiable Presentation was successful or not",
-              "type": "boolean"
-            },
-            "message": {
-              "description": "An additional message an implementer might add to provide context or hints to a passed verification",
-              "type": "string"
-            },
-            "errors": {
-              "description": "An additional field which may include errors to further describe the reason behind a failed verification",
-              "type": "string"
-            }
+      "Request_VerifiablePresentation_Verify": {
+        "type": "object",
+        "required": [
+          "verifablePresentation"
+        ],
+        "properties": {
+          "verifablePresentation": {
+            "description": "The verifiable presentation to verify in JWT Base64 encoded format",
+            "type": "string",
+            "format": "base64"
           }
-        },
-        "VerifiablePresentation_Generate": {
-          "type": "object",
-          "required": [
-            "success"
-          ],
-          "properties": {
-            "success": {
-              "description": "If the generation of the Verifiable Presentation has been successful or not",
-              "type": "boolean"
-            },
-            "verifiablePresentation": {
-              "description": "The JWT formatted and base64 encoded Verifiable Presentation",
+        }
+      },
+      "Response_VerifiablePresentation_Verify": {
+        "type": "object",
+        "required": [
+          "success"
+        ],
+        "properties": {
+          "success": {
+            "description": "If the verification of the provided Verifiable Presentation was successful or not",
+            "type": "boolean"
+          },
+          "message": {
+            "description": "An additional message an implementer might add to provide context or hints to a passed verification",
+            "type": "string"
+          },
+          "errors": {
+            "description": "An additional field which may include errors to further describe the reason behind a failed verification",
+            "type": "string"
+          }
+        }
+      },
+      "Response_VerifiablePresentation_Generate": {
+        "type": "object",
+        "required": [
+          "success"
+        ],
+        "properties": {
+          "success": {
+            "description": "If the generation of the Verifiable Presentation has been successful or not",
+            "type": "boolean"
+          },
+          "verifiablePresentation": {
+            "description": "The JWT formatted and base64 encoded Verifiable Presentation",
+            "type": "string",
+            "format": "base64"
+          },
+          "message": {
+            "description": "An additional message an implementer might add to provide context or hints to a passed verification",
+            "type": "string"
+          },
+          "errors": {
+            "description": "An additional field which may include errors to further describe the reason behind a failed verification",
+            "type": "string"
+          },
+          "errorCodes": {
+            "description": "Array containing all OCI conformant errorCodes which are related to the error at hand",
+            "type": "array",
+            "items": {
               "type": "string",
-              "format": "base64"
-            },
-            "message": {
-              "description": "An additional message an implementer might add to provide context or hints to a passed verification",
-              "type": "string"
-            },
-            "errors": {
-              "description": "An additional field which may include errors to further describe the reason behind a failed verification",
-              "type": "string"
+              "enum": [
+                "jwt_invalid",
+                "vc_exp_expired",
+                "vc_nbf_expired",
+                "vp_iat_expired",
+                "vp_iss_invalid",
+                "vp_nonce_invalid",
+                "vc_invalid",
+                "vc_revoked",
+                "vc_proof_invalid"
+              ]
             }
           }
         }
