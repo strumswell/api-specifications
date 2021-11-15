@@ -231,7 +231,10 @@
       "Response_VerifiablePresentation_Verify": {
         "type": "object",
         "required": [
-          "success"
+          "success",
+          "message",
+          "errors",
+          "errorCodes"
         ],
         "properties": {
           "success": {
@@ -245,13 +248,34 @@
           "errors": {
             "description": "An additional field which may include errors to further describe the reason behind a failed verification",
             "type": "string"
-          }
+          },
+          "errorCodes": {
+            "description": "Array containing all OCI conformant errorCodes which are related to the error at hand",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "jwt_invalid",
+                "vc_exp_expired",
+                "vc_nbf_expired",
+                "vp_iat_expired",
+                "vp_iss_invalid",
+                "vp_nonce_invalid",
+                "vc_invalid",
+                "vc_revoked",
+                "vc_proof_invalid"
+              ]
+            }
+          }          
         }
       },
       "Response_VerifiablePresentation_Generate": {
         "type": "object",
         "required": [
-          "success"
+          "success",
+          "message",
+          "errors",
+          "errorCodes"
         ],
         "properties": {
           "success": {
