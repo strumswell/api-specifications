@@ -151,7 +151,8 @@
         "value": {
           "success": true,
           "message": "Verification succeeded",
-          "errors": []
+          "errors": [],
+          "errorCodes": []
         }
       },
       "VerifiablePresentation_Verify_Failure": {
@@ -162,7 +163,11 @@
           "errors": [
             "expirationTime check failed",
             "issuanceDate check failed"
-          ]
+          ],
+          "errorCodes": [
+            "vc_exp_expired",
+            "vp_iat_expired"
+          ]          
         }
       },
       "VerifiablePresentation_Generate_Success": {
@@ -173,7 +178,8 @@
           "did": "did:ethr:example",
           "credentialType": "IdentityCredential",
           "message": "Generation succeeded",
-          "errors": []
+          "errors": [],
+          "errorCodes": []
         }
       },
       "VerifiablePresentation_Generate_Failure": {
