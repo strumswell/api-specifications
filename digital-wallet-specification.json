@@ -345,8 +345,11 @@
               "enum": [
                 "jwt_invalid",
                 "vc_exp_expired",
+                "vc_exp_invalid",
                 "vc_nbf_expired",
+                "vc_nbf_invalid",
                 "vp_iat_expired",
+                "vp_iat_invalid",
                 "vp_iss_invalid",
                 "vp_nonce_invalid",
                 "vc_invalid",
