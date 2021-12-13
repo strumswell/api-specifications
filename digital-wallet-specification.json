@@ -128,15 +128,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "oneOf" : [
-                      {
-                        "$ref": "#/components/schemas/Response_VerifiablePresentation_Generate_Success"
-                      },
-                      {
-                        "$ref": "#/components/schemas/Response_VerifiablePresentation_Generate_Failure"
-                      }
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/Response_VerifiablePresentation_Generate_Success"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Response_VerifiablePresentation_Generate_Failure"
+                    }
                   ]
-                  
                 },
                 "examples": {
                   "Success": {
@@ -359,7 +358,7 @@
             }
           }
         }
-      }      
+      }
     }
   }
 }
