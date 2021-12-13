@@ -172,7 +172,6 @@
         "summary": "Failed verification",
         "value": {
           "success": false,
-          "message": "Verification failed",
           "errors": [
             "expirationTime check failed",
             "issuanceDate check failed"
@@ -197,7 +196,6 @@
         "summary": "Failed generation",
         "value": {
           "success": false,
-          "message": "Generation failed",
           "errors": [
             "Generation of Verifiable Presentation failed because Credential has been revoked"
           ],
