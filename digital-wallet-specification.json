@@ -116,7 +116,7 @@
               },
               "example": {
                 "corrUUID": "urn:uuid:649c7686-4e66-402b-84d9-5cdba5ec8111",
-                "did": "did:ethr:example",
+                "holderDid": "did:ethr:example",
                 "credentialType": "DSCSA-ATP-Credential"
               }
             }
@@ -186,7 +186,7 @@
         "value": {
           "success": true,
           "verifiablePresentation": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImRpZDpleGFtcGxlOmFiZmUxM2Y3MTIxMjA0[...]",
-          "did": "did:ethr:example",
+          "holderDid": "did:ethr:example",
           "credentialType": "IdentityCredential",
           "message": "Generation succeeded"
         }
@@ -210,7 +210,7 @@
         "type": "object",
         "required": [
           "corrUUID",
-          "did",
+          "holderDid",
           "credentialType"
         ],
         "properties": {
@@ -218,7 +218,7 @@
             "description": "The correlation uuid of the PI message",
             "type": "string"
           },
-          "did": {
+          "holderDid": {
             "description": "The DID that holds the requested credential",
             "type": "string"
           },
@@ -248,8 +248,7 @@
       "Response_VerifiablePresentation_Verify_Success": {
         "type": "object",
         "required": [
-          "success",
-          "message"
+          "success"
         ],
         "properties": {
           "success": {
@@ -302,7 +301,7 @@
         "type": "object",
         "required": [
           "success",
-          "message"
+          "verifiablePresentation"
         ],
         "properties": {
           "success": {
@@ -313,6 +312,18 @@
             "description": "The JWT formatted and base64 encoded Verifiable Presentation",
             "type": "string",
             "format": "base64"
+          },
+          "credentialType": {
+            "description": "The type of credential that has been generated",
+            "type": "string",
+            "enum": [
+              "IdentityCredential",
+              "DSCSA-ATP-Credential"
+            ]
+          },
+          "holderDid": {
+            "description": "The DID that holds the requested credential",
+            "type": "string"
           },
           "message": {
             "description": "An additional message an implementer might add to provide context or hints to a passed verification",
