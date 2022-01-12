@@ -164,6 +164,7 @@
         "summary": "Successful verification",
         "value": {
           "success": true,
+          "verifiablePresentation": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImRpZDpleGFtcGxlOmFiZmUxM2Y3MTIxMjA0[...]",
           "message": "Verification succeeded"
         }
       },
@@ -187,6 +188,7 @@
           "success": true,
           "verifiablePresentation": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImRpZDpleGFtcGxlOmFiZmUxM2Y3MTIxMjA0[...]",
           "holderDid": "did:ethr:example",
+          "corrUUID" : "8F53E8D0-FCC6-4214-A168-AF1E962C148D",
           "credentialType": "IdentityCredential",
           "message": "Generation succeeded"
         }
@@ -216,7 +218,8 @@
         "properties": {
           "corrUUID": {
             "description": "The correlation uuid of the PI message",
-            "type": "string"
+            "type": "string",
+            "pattern": "^[a-fA-F\\d]{8}-[a-fA-F\\d]{4}-4[a-fA-F\\d]{3}-[89abAB][a-fA-F\\d]{3}-[a-fA-F\\d]{ 12}$"
           },
           "holderDid": {
             "description": "The DID that holds the requested credential",
@@ -255,6 +258,10 @@
             "description": "If the verification of the provided Verifiable Presentation was successful or not",
             "type": "boolean"
           },
+          "verifiablePresentation" : {
+            "description": "VerifiablePresenation that has been checked",
+            "type": "string"
+          },
           "message": {
             "description": "An additional message an implementer might add to provide context or hints to a passed verification",
             "type": "string"
@@ -275,7 +282,10 @@
           },
           "errors": {
             "description": "An additional field which may include errors to further describe the reason behind a failed verification",
-            "type": "array"
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
           },
           "errorCodes": {
             "description": "Array containing all OCI conformant errorCodes which are related to the error at hand",
@@ -345,7 +355,10 @@
           },
           "errors": {
             "description": "An additional field which may include errors to further describe the reason behind a failed verification",
-            "type": "array"
+            "type": "array",
+            "items" : {
+              "type": "string"
+            }
           },
           "errorCodes": {
             "description": "Array containing all OCI conformant errorCodes which are related to the error at hand",
