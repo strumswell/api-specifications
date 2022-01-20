@@ -117,7 +117,7 @@
               "example": {
                 "corrUUID": "urn:uuid:649c7686-4e66-402b-84d9-5cdba5ec8111",
                 "holderDid": "did:ethr:example",
-                "credentialType": "DSCSA-ATP-Credential"
+                "credentialType": "DSCSAATPCredential"
               }
             }
           }
@@ -230,7 +230,7 @@
             "type": "string",
             "enum": [
               "IdentityCredential",
-              "DSCSA-ATP-Credential"
+              "DSCSAATPCredential"
             ]
           }
         }
@@ -328,7 +328,7 @@
             "type": "string",
             "enum": [
               "IdentityCredential",
-              "DSCSA-ATP-Credential"
+              "DSCSAATPCredential"
             ]
           },
           "holderDid": {
