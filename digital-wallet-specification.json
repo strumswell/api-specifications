@@ -9,6 +9,7 @@
       "post": {
         "operationId": "postVerfiablePresentationVerification",
         "summary": "Verify a given Verifiable Presentation",
+        "description": "For a detailed description of implementation flows see: [Digital Wallet Conformance Criteria](https://open-credentialing-initiative.github.io/Digital-Wallet-Conformance-Criteria/#api-to-verify-verifiable-presentation-of-atp-credential). For specifics on VP lifetime checks also refer to: [Protection against Credential Replay Attacks and VP Lifetime](https://open-credentialing-initiative.github.io/Digital-Wallet-Conformance-Criteria/#protection-against-credential-replay-attacks-and-vp-lifetime)",
         "tags": [
           "VerifiablePresentation"
         ],
@@ -65,6 +66,7 @@
       "post": {
         "operationId": "postVerfiablePresentationGeneration",
         "summary": "Generate a new Verifiable Presentation",
+        "description": "For a detailed description of implementation flows see: [Digital Wallet Conformance Criteria](https://open-credentialing-initiative.github.io/Digital-Wallet-Conformance-Criteria/#api-to-generate-a-verifiable-presentation-of-atp-credential)",
         "tags": [
           "VerifiablePresentation"
         ],
