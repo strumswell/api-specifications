@@ -325,6 +325,10 @@
             "description": "The JWT formatted and base64 encoded Verifiable Presentation",
             "type": "string",
             "format": "base64"
+          },       
+          "holderDID": {
+            "description": "The DID that holds the requested credential",
+            "type": "string"
           },
           "corrUUID": {
             "description": "The correlation uuid of the PI message",
@@ -338,10 +342,6 @@
               "IdentityCredential",
               "DSCSAATPCredential"
             ]
-          },          
-          "holderDID": {
-            "description": "The DID that holds the requested credential",
-            "type": "string"
           },
           "message": {
             "description": "An additional message an implementer might add to provide context or hints to a passed verification",
