@@ -2,7 +2,7 @@
   "openapi": "3.0.2",
   "info": {
     "title": "Digital Wallet Provider OpenAPI Specification",
-    "version": "1.0.0"
+    "version": "1.0.1"
   },
   "paths": {
     "/api/v1/verifiablePresentation/verify": {
@@ -22,7 +22,8 @@
                 "$ref": "#/components/schemas/Request_VerifiablePresentation_Verify"
               },
               "example": {
-                "verifiablePresentation": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImRpZDpleGFtcGxlOjB [...]"
+                "verifiablePresentation": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImRpZDpleGFtcGxlOjB [...]",
+                "verifierDID": "did:ethr:example"
               }
             }
           }
@@ -240,13 +241,18 @@
       "Request_VerifiablePresentation_Verify": {
         "type": "object",
         "required": [
-          "verifablePresentation"
+          "verifablePresentation",
+          "verifierDID"
         ],
         "properties": {
           "verifablePresentation": {
             "description": "The verifiable presentation to verify in JWT Base64 encoded format",
             "type": "string",
             "format": "base64"
+          },
+          "verifierDID": {
+            "description": "The DID that requests a verification of the attached Verifiable Presentation.",
+            "type": "string"
           }
         }
       },
